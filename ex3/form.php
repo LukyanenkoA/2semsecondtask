@@ -56,17 +56,17 @@
       name="bodyparts" value="cannot count" />
       cannot count</label><br />
     <label>
-      <!--6. Your superpower (pick one or more):
+      6. Your superpower (pick one or more):
       <br />
-      <select name="superpower"
+      <select name="ability[]"
           multiple="multiple">
-          <option value="none" selected="selected">none</option>
-          <option value="immortality">immortality</option>
-          <option value="invisibility">invisibility</option>
-          <option value="levitation">levitation</option>
+          <option value="1" selected="selected">none</option>
+          <option value="2">immortality</option>
+          <option value="3">invisibility</option>
+          <option value="4">levitation</option>
       </select>
       </label><br />
-      <label>-->
+      <label>
       7. Your biography:<br />
         <textarea name="bio" placeholder="user@example.com"></textarea>
         </label><br />
