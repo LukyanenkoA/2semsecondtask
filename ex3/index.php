@@ -70,12 +70,11 @@ $db = new PDO('mysql:host=localhost;dbname=u52991', $user, $pass,
 try {
   $stmt = $db->prepare("INSERT INTO application SET name = ?, email = ?, year = ?, gender = ?, bodyparts = ?, biography = ?");
   $stmt->execute([$_POST['fio'], $_POST['email'], $_POST['year'], $_POST['gender'], $_POST['bodyparts'], $_POST['bio']]);
-  //$app_id = $db->lastInsertId();
-  //$stmt = $db->prepare("INSERT INTO application_ability SET application_id = ?, ability_id=?");
-  //foreach($_POST['ability[]'] as $ability) {
-  //  $stmt->execute([$ability, $app_id]);
-  //}
-}
+  $app_id = $db->lastInsertId();
+  $stmt = $db->prepare("INSERT INTO ability_application SET ability_id= ?, apllication_id=?");
+  foreach ($_POST['ability'] as $ability) {
+    $stmt->execute([$ability, $app_id]);
+  }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
