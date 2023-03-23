@@ -72,7 +72,7 @@ try {
   $stmt->execute([$_POST['fio'], $_POST['email'], $_POST['year'], $_POST['gender'], $_POST['bodyparts'], $_POST['bio']]);
   $app_id = $db->lastInsertId();
   $stmt = $db->prepare("INSERT INTO application_ability SET application_id = ?, ability_id=?");
-  foreach($_POST['ability'] as $ability) {
+  foreach($_POST['ability[]'] as $ability) {
     $stmt->execute([$ability, $app_id]);
   }
 }
