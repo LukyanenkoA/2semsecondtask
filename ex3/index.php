@@ -73,7 +73,7 @@ try {
   $app_id = $db->lastInsertId();
   $stmt = $db->prepare("INSERT INTO application_ability SET application_id = ?, ability_id=?");
   foreach($_POST['ability'] as $ability) {
-    $stmt->execute([$ability, $app_id])
+    $stmt->execute([$ability, $app_id]);
   }
 }
 catch(PDOException $e){
