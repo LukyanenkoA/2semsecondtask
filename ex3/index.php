@@ -75,6 +75,7 @@ try {
   foreach ($_POST['ability'] as $ability) {
     $stmt->execute([$ability, $app_id]);
   }
+}
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
