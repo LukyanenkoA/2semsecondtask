@@ -25,21 +25,20 @@ if (empty($_POST['fio'])) {
   $errors = TRUE;
 }
 
-if (empty($_POST['email']) || !preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i', $_POST['email'])) {
-  print('Заполните email.<br/>');
-  $errors = TRUE;
-}
-
 if (empty($_POST['year']) || !is_numeric($_POST['year']) || !preg_match('/^\d+$/', $_POST['year'])) {
   print('Заполните год.<br/>');
   $errors = TRUE;
 }
 
-if (empty($_POST['gender']) || ($_POST['gender']!='m' && $_POST['gender']!='f')) {
-  print('Заполните пол.<br/>');
+if (empty($_POST['email']) || !preg_match('/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u',$_POST['email'])) {
+  print('Зфполните email.<br/>');
   $errors = TRUE;
 }
 
+if (empty($_POST['gender']) || ($_POST['gender']!='m' && $_POST['gender']!='w')) {
+  print('Заполните пол.<br/>');
+  $errors = TRUE;
+}
 if (empty($_POST['bodyparts']) || ($_POST['bodyparts']!='2' && $_POST['bodyparts']!='3' && $_POST['bodyparts']!='4' && $_POST['bodyparts']!='cannot count')) {
   print('Заполните части тела.<br/>');
   $errors = TRUE;
@@ -49,6 +48,8 @@ if (empty($_POST['bio']) || !preg_match('/^[0-9A-Za-z0-9А-Яа-я,\.\s]+$/', $_
   print('Заполните биографию.<br/>');
   $errors = TRUE;
 }
+
+
 
 // *************
 // Тут необходимо проверить правильность заполнения всех остальных полей.
@@ -61,17 +62,16 @@ if ($errors) {
 
 // Сохранение в базу данных.
 
-$user = 'u52991'; // Заменить на ваш логин uXXXXX
-$pass = '4039190'; // Заменить на пароль, такой же, как от SSH
-$db = new PDO('mysql:host=localhost;dbname=u52991', $user, $pass,
-  [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
+$user = 'u52991';
+$pass = '4039190';
+$db = new PDO('mysql:host=localhost;dbname=u52991', $user, $pass, [PDO::ATTR_PERSISTENT => true]);
 
 // Подготовленный запрос. Не именованные метки.
 try {
-  $stmt = $db->prepare("INSERT INTO application SET name = ?, email = ?, year = ?, gender = ?, bodyparts = ?, biography = ?");
-  $stmt->execute([$_POST['fio'], $_POST['email'], $_POST['year'], $_POST['gender'], $_POST['bodyparts'], $_POST['bio']]);
+  $stmt = $db->prepare("INSERT INTO application SET name = ?, email=?, year=?, gender = ?, bodyparts = ?, biography = ?");
+  $stmt -> execute([$_POST['fio'], $_POST['email'],$_POST['year'], $_POST['gender'], $_POST['bodyparts'], $_POST['bio']]);
   $app_id = $db->lastInsertId();
-  $stmt = $db->prepare("INSERT INTO application_ability SET application_id=?, ability_id= ?");
+  $stmt = $db->prepare("INSERT INTO ability_application SET ability_id= ?, apllication_id=?");
   foreach ($_POST['ability'] as $ability) {
     $stmt->execute([$ability, $app_id]);
   }
