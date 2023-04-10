@@ -77,10 +77,10 @@
       <br />
       <select name="ability[]"
           multiple="multiple" <?php print($errors['ability'] ? 'class="error"' : '');?>>
-          <option value="1" selected="<?php print(in_array('1', $values['ability']) ? 'selected' : '');?>">none</option>
-          <option value="2" selected="<?php print(in_array('2', $values['ability']) ? 'selected' : '');?>">immortality</option>
-          <option value="3" selected="<?php print(in_array('3', $values['ability']) ? 'selected' : '');?>">invisibility</option>
-          <option value="4" selected="<?php print(in_array('4', $values['ability']) ? 'selected' : '');?>">levitation</option>
+          <option value="1" <?php print(in_array('1', $values['ability']) ? 'selected ="selected"' : '');?>>none</option>
+          <option value="2" <?php print(in_array('2', $values['ability']) ? 'selected ="selected"' : '');?>>immortality</option>
+          <option value="3" <?php print(in_array('3', $values['ability']) ? 'selected ="selected"' : '');?>>invisibility</option>
+          <option value="4" <?php print(in_array('4', $values['ability']) ? 'selected ="selected"' : '');?>>levitation</option>
       </select>
       </label><br />
       <label>

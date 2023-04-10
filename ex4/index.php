@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $values['year'] = empty($_COOKIE['year_value']) ? '' : $_COOKIE['year_value'];
   $values['gender'] = empty($_COOKIE['gender_value']) ? '' : $_COOKIE['gender_value'];
   $values['bodyparts'] = empty($_COOKIE['bodyparts_value']) ? '' : $_COOKIE['bodyparts_value'];
-  $values['ability'] = empty($_COOKIE['ability_value']) ? array() : unserialize($_COOKIE['ability_value']);
+  $values['ability'] = empty($_COOKIE['ability_value']) ? array() : json_encode($_COOKIE['ability_value']);
   $values['bio'] = empty($_COOKIE['bio_value']) ? '' : $_COOKIE['bio_value'];
   // TODO: аналогично все поля.
 
@@ -150,7 +150,7 @@ foreach ($_POST['ability'] as $ability) {
   }
 }
 if (!empty($_POST['ability'])) {
-  setcookie('ability_value', json_encode($_POST['ability']), time() + 24 * 60 * 60);
+  setcookie('ability_value', json_decode($_POST['ability']), time() + 24 * 60 * 60);
 }
 
 if (empty($_POST['bio']) || !preg_match('/^[0-9A-Za-z0-9А-Яа-я,\.\s]+$/', $_POST['bio'])) {
