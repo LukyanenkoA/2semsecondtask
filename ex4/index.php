@@ -150,7 +150,7 @@ foreach ($_POST['ability'] as $ability) {
   }
 }
 if (!empty($_POST['ability'])) {
-  setcookie('ability_value', serialize($_POST['ability']), time() + 24 * 60 * 60);
+  setcookie('ability_value', json_encode($_POST['ability']), time() + 24 * 60 * 60);
 }
 
 if (empty($_POST['bio']) || !preg_match('/^[0-9A-Za-z0-9А-Яа-я,\.\s]+$/', $_POST['bio'])) {
