@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // Складываем предыдущие значения полей в массив, если есть.
   $values = array();
   $values['fio'] = empty($_COOKIE['fio_value']) ? '' : $_COOKIE['fio_value'];
-  $values['email'] = empty($_COOKIE['email_value']) ? '' : $_COOKIE['fio_value'];
+  $values['email'] = empty($_COOKIE['email_value']) ? '' : $_COOKIE['email_value'];
   $values['year'] = empty($_COOKIE['year_value']) ? '' : $_COOKIE['year_value'];
   $values['gender'] = empty($_COOKIE['gender_value']) ? '' : $_COOKIE['gender_value'];
   $values['bodyparts'] = empty($_COOKIE['bodyparts_value']) ? '' : $_COOKIE['bodyparts_value'];
@@ -154,8 +154,13 @@ if (!empty($_POST['ability'])) {
 }
 
 if (empty($_POST['bio']) || !preg_match('/^[0-9A-Za-z0-9А-Яа-я,\.\s]+$/', $_POST['bio'])) {
-  print('Заполните биографию.<br/>');
-  $errors = TRUE;
+    // Выдаем куку на день с флажком об ошибке в поле bio.
+    setcookie('bio_error', '1', time() + 24 * 60 * 60);
+    $errors = TRUE;
+}
+else {
+  // Сохраняем ранее введенное в форму значение на месяц.
+  setcookie('bio_value', $_POST['bio'], time() + 30 * 24 * 60 * 60);
 }
 
 // *************
